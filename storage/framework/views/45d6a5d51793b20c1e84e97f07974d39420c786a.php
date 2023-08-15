@@ -1,12 +1,12 @@
-@push('css')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<?php $__env->startPush('css'); ?>
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<link href="{{ asset('') }}vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-<link href="{{ asset('') }}vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-@endpush
-@extends('layouts.app')
+<link href="<?php echo e(asset('')); ?>vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo e(asset('')); ?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<?php $__env->stopPush(); ?>
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
@@ -42,30 +42,30 @@
                         <h2><i class="fa fa-id-card-o"></i>Lengkapi Biodata Calon Mahasiswa (2)</h2>
                         <div class="clearfix"></div>
                     </div>
-                    @forelse ( $mahasiswa as $siswa )
+                    <?php $__empty_1 = true; $__currentLoopData = $mahasiswa; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siswa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <a href="#" class="btn btn-success">Sudah Memasukkan Data Calon Mahasiswa</a>
-                    <a href="{{ route('mahasiswa.showMahasiswa', $siswa->id) }}" class="btn btn-success">Cek validasi Data
+                    <a href="<?php echo e(route('mahasiswa.showMahasiswa', $siswa->id)); ?>" class="btn btn-success">Cek validasi Data
                         Mahasiswa <i class="fa fa-arrow-right"></i></a>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <a href="#" class="btn btn-warning">Belum Memasukkan Data Calon Mahasiswa</a>
-                    <a href="{{ route('mahasiswa.createMahasiswa') }}" class="btn btn-warning">Silahkan Daftar Disini <i
+                    <a href="<?php echo e(route('mahasiswa.createMahasiswa')); ?>" class="btn btn-warning">Silahkan Daftar Disini <i
                             class="fa fa-arrow-right"></i></a>
-                    @endforelse
+                    <?php endif; ?>
                 </div>
                 <div class="x_panel">
                     <div class="x_title">
                         <h2><i class="fa fa-id-card-o"></i>Upload Berkas (3)</h2>
                         <div class="clearfix"></div>
                     </div>
-                    @forelse ( $dokumenMahasiswa as $dokumen )
+                    <?php $__empty_1 = true; $__currentLoopData = $dokumenMahasiswa; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dokumen): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <a href="#" class="btn btn-success">Sudah Memasukkan Berkas Persyaratan</a>
-                    <a href="{{ route('dokumenmahasiswa.showdokumen', Auth::user()->nik)}}" class="btn btn-success">Cek Validasi
+                    <a href="<?php echo e(route('dokumenmahasiswa.showdokumen', Auth::user()->nik)); ?>" class="btn btn-success">Cek Validasi
                         Berkas Persyaratan<i class="fa fa-arrow-right"></i></a>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <a href="#" class="btn btn-warning">Belum Memasukkan Berkas Persyaratan</a>
-                    <a href="{{ route('mahasiswa.createDokumen') }}" class="btn btn-warning">Silahkan Upload File Berkas
+                    <a href="<?php echo e(route('mahasiswa.createDokumen')); ?>" class="btn btn-warning">Silahkan Upload File Berkas
                         <i class="fa fa-arrow-right"></i></a>
-                    @endforelse
+                    <?php endif; ?>
                 </div>
                 <div class="x_panel text-center">
                     <div class="x_title">
@@ -81,8 +81,10 @@
 </div>
 <!-- /page content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('js')
-<script src="{{ asset('') }}vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('') }}vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<?php $__env->startPush('js'); ?>
+<script src="<?php echo e(asset('')); ?>vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo e(asset('')); ?>vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Folder_project\Laravel_project\pmbmahasiswa\resources\views/users/menu/index.blade.php ENDPATH**/ ?>

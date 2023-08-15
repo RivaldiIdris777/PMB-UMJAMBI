@@ -1,15 +1,12 @@
 <!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Aktivasi Akun</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Login & Registration Form</title>
     <!---Custom CSS File--->
     <style>
         /* Import Google font - Poppins */
@@ -38,22 +35,6 @@
             background: #fff;
             border-radius: 7px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .container .registration {
-            display: none;
-        }
-
-        #check:checked~.registration {
-            display: block;
-        }
-
-        #check:checked~.login {
-            display: none;
-        }
-
-        #check {
-            display: none;
         }
 
         .container .form {
@@ -124,35 +105,51 @@
 </head>
 
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <div class="container">
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-        <div class="login form">
-            <header>Verifikasi Email</header>
-            @if (session('resent'))
-                <script type='text/javascript'>
-                    swal({
-                        title: "Berhasil",
-                        text: "Link aktivasi telah dikirimkan ke email {{ auth()->user()->email }}",
-                        type: "success"
-                    }).then(function() {
-                        event.preventDefault();
-                        document.getElementById('logout-form').submit();
-                    });
-                </script>
-            @endif
-            Sebelum melanjutkan, periksa email Anda untuk link aktivasi. Setelah Melakukan Aktivasi Silahkan Kembali Ke Halaman Login.
-            <a href="{{ route('login') }}" class="button btn btn-success">Kembali Ke Halaman Login</a>
-            <!-- <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                @csrf
-                <input type="submit" class="button" value="Kembali Ke Halaman Login">
-            </form> -->
+        <div class="registration form  mt-2 mb-3">
+            <header>
+                <img src="<?php echo e(asset('')); ?>logo_um.png" alt="logo um" width="60" height="60">
+                <h6>Ubah Password Baru</h6>
+            </header>
+            <form method="POST" action="<?php echo e(route('changePassword', $data->email)); ?>">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
+                <input id="password" type="password" class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                    name="password" required autocomplete="new-password" placeholder="Masukan Password Anda">
+
+                <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <span class="invalid-feedback" role="alert">
+                        <strong><?php echo e($message); ?></strong>
+                    </span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                <div class="col-md-6">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                        required autocomplete="new-password" placeholder="Ulangi Password Anda">
+                </div>
+                <input type="submit" class="button" value="Registrasi">
+            </form>
+            <div class="signup">
+                <span class="signup">Sudah memiliki akun ?
+                    <a href="<?php echo e(route('login')); ?>">Login</a>
+                </span>
+            </div>
         </div>
     </div>
 </body>
 
 </html>
+<?php /**PATH C:\laragon\www\Folder_project\Laravel_project\pmbmahasiswa\resources\views/auth/changePassword.blade.php ENDPATH**/ ?>

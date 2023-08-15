@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
 
 <head>
@@ -7,8 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login & Registration Form</title>
     <!---Custom CSS File--->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         /* Import Google font - Poppins */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
@@ -36,22 +35,6 @@
             background: #fff;
             border-radius: 7px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .container .registration {
-            display: none;
-        }
-
-        #check:checked~.registration {
-            display: block;
-        }
-
-        #check:checked~.login {
-            display: none;
-        }
-
-        #check {
-            display: none;
         }
 
         .container .form {
@@ -118,59 +101,40 @@
         .signup label:hover {
             text-decoration: underline;
         }
-
     </style>
 </head>
 
 <body>
     <div class="container">
-        <input type="checkbox" id="check">
-        <div class="login form">
+        <div class="registration form  mt-2 mb-3">
             <header>
                 <img src="{{ asset('') }}logo_um.png" alt="logo um" width="60" height="60">
-                <h5 class="mt-3">Login Untuk Masuk Halaman</h5>
+                <h6>Ubah Password Baru</h6>
             </header>
-                @if ($message = Session::get('Success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                @endif
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('changePassword', $data->email) }}">
                 @csrf
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                    placeholder="Masukan Email Anda" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-
-                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="Masukan Password Anda" name="password" required autocomplete="current-password">
+                @method('PUT')
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" required autocomplete="new-password" placeholder="Masukan Password Anda">
 
                 @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
-                <a href="{{ route('password.request') }}">Lupa password ?</a>
-                <input type="submit" class="button" value="Login">
+                <div class="col-md-6">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                        required autocomplete="new-password" placeholder="Ulangi Password Anda">
+                </div>
+                <input type="submit" class="button" value="Ubah Password">
             </form>
             <div class="signup">
-                <span class="signup">Belum memiliki akun ?
-                    <a href="{{ route('register') }}">Registrasi</a>
-                </span>
-            </div>
-            <div class="signup">
-                <span class="signup">Lupa Password ?
-                    <a href="{{ url('/resetPage') }}">Reset Password Disini</a>
+                <span class="signup">Sudah memiliki akun ?
+                    <a href="{{ route('login') }}">Login</a>
                 </span>
             </div>
         </div>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 </html>

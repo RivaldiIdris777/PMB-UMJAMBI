@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\VerifyEmail;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+
 
 class RegisterController extends Controller
 {
@@ -82,11 +87,62 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'nik' => $data['nik'],
         ]);
+        return $user;
+    }
+
+    public function register2(Request $request)
+    {
+        $messages = [
+            'name' => [
+                'required' => 'Nama harus terisi'
+            ],
+            'email' => [
+                'required' => 'Email harus diisi',
+                'unique' => 'Email sudah pernah digunakan'
+            ],
+            'password' => [
+                'required' => 'Password harus diisi'
+            ],
+            'nik' => [
+                'required' => 'NIK harus diisi',
+                'unique' => 'NIK sudah pernah digunakan'
+            ]
+        ];
+
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nik' => ['required', 'numeric','min:15', 'unique:users'],
+        ], $messages);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request['password']),
+            'nik' => $request->nik
+        ]);
+        Mail::to($user->email)->send(new VerifyEmail($user));
+
+        return view('auth.verify');
+    }
+
+    public function verifyEmail($email) {
+        $verifiedUser = User::where('email', $email)->first();
+        // dd($verifiedUser->name);
+        if(is_null($verifiedUser->email_verified_at)) {
+            $verifiedUser->email_verified_at = Carbon::now();
+            $verifiedUser->save();
+            return redirect()->route('login')->with(['Success' => 'Verifikasi Berhasil Silahkan Login Untuk Masuk Halaman']);
+        }else {
+            redirect(route('login'));
+        }
+
     }
 }

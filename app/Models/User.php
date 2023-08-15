@@ -25,6 +25,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'nik'
     ];
 
+    public function verifyUser()
+    {
+        return $this->hasOne('App\Models\VerifyUser');
+
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

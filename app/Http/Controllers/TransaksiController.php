@@ -255,7 +255,7 @@ class TransaksiController extends Controller
         $imageberkas = $request->file('berkas');
         $nameBukti = $nikuser . "-" . "Bukti_Pembayaran" . "-" . $emailUser . "." . $request->file('berkas')->getClientOriginalExtension();
         $path = 'app/public/bukti_pembayaran/'. $nameBukti;
-        $compressBukti = Image::make($imageberkas)->fit(1080, 1080);
+        $compressBukti = Image::make($imageberkas)->resize(1080, 1080);
         $compressBukti->save(\storage_path($path), 80);
 
         $simpan = DB::table('tb_transaksi')->insert([

@@ -128,49 +128,34 @@
         <div class="login form">
             <header>
                 <img src="{{ asset('') }}logo_um.png" alt="logo um" width="60" height="60">
-                <h5 class="mt-3">Login Untuk Masuk Halaman</h5>
+                <h5 class="mt-3"></h5>
             </header>
-                @if ($message = Session::get('Success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                @endif
-            <form method="POST" action="{{ route('login') }}">
+            @if ($message = Session::get('Success'))
+            <div class="alert alert-warning alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+            <form method="POST" action="{{ route('reset.send') }}">
                 @csrf
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                    placeholder="Masukan Email Anda" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
+                    placeholder="Masukkan Email Anda" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
-
-                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="Masukan Password Anda" name="password" required autocomplete="current-password">
-
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-                <a href="{{ route('password.request') }}">Lupa password ?</a>
-                <input type="submit" class="button" value="Login">
+                <input type="submit" class="button" value="Kirim Reset Password">
             </form>
-            <div class="signup">
-                <span class="signup">Belum memiliki akun ?
-                    <a href="{{ route('register') }}">Registrasi</a>
-                </span>
-            </div>
-            <div class="signup">
-                <span class="signup">Lupa Password ?
-                    <a href="{{ url('/resetPage') }}">Reset Password Disini</a>
-                </span>
-            </div>
         </div>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+</script>
 
 </html>

@@ -127,50 +127,50 @@
         <input type="checkbox" id="check">
         <div class="login form">
             <header>
-                <img src="{{ asset('') }}logo_um.png" alt="logo um" width="60" height="60">
-                <h5 class="mt-3">Login Untuk Masuk Halaman</h5>
+                <img src="<?php echo e(asset('')); ?>logo_um.png" alt="logo um" width="60" height="60">
+                <h5 class="mt-3"></h5>
             </header>
-                @if ($message = Session::get('Success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                @endif
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                    placeholder="Masukan Email Anda" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+            <?php if($message = Session::get('Success')): ?>
+            <div class="alert alert-warning alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong><?php echo e($message); ?></strong>
+            </div>
+            <?php endif; ?>
 
-                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="Masukan Password Anda" name="password" required autocomplete="current-password">
-
-                @error('password')
+            <form method="POST" action="<?php echo e(route('reset.send')); ?>">
+                <?php echo csrf_field(); ?>
+                <input type="text" class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="email"
+                    placeholder="Masukkan Email Anda" value="<?php echo e(old('email')); ?>" required autocomplete="email" autofocus>
+                <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong><?php echo e($message); ?></strong>
                 </span>
-                @enderror
-                <a href="{{ route('password.request') }}">Lupa password ?</a>
-                <input type="submit" class="button" value="Login">
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                <input type="submit" class="button" value="Kirim Reset Password">
             </form>
-            <div class="signup">
-                <span class="signup">Belum memiliki akun ?
-                    <a href="{{ route('register') }}">Registrasi</a>
-                </span>
-            </div>
-            <div class="signup">
-                <span class="signup">Lupa Password ?
-                    <a href="{{ url('/resetPage') }}">Reset Password Disini</a>
-                </span>
-            </div>
         </div>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+</script>
 
 </html>
+<?php /**PATH C:\laragon\www\Folder_project\Laravel_project\pmbmahasiswa\resources\views/auth/reset.blade.php ENDPATH**/ ?>

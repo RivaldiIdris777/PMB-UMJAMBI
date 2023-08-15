@@ -7,6 +7,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DokumenMahasiswaController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\MenuUserController;
+use App\Http\Controllers\ResetPController;
 use App\Http\Controllers\ExcelController;
 use Doctrine\DBAL\FetchMode;
 use Illuminate\Support\Arr;
@@ -30,6 +31,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes(['verify' => true]);
+
+Route::post('/register2', [App\Http\Controllers\Auth\RegisterController::class, 'register2'])->name('register2');
+Route::get('/user/verifyemail/{email}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyEmail'])->name('user.verify');
+
+Route::get('/resetPage', [App\Http\Controllers\Auth\ResetPController::class, 'resetPage']);
+Route::post('/reset', [App\Http\Controllers\Auth\ResetPController::class, 'resetChange'])->name('reset.send');
+Route::get('/reset/{email}', [App\Http\Controllers\Auth\ResetPController::class, 'resetChange']);
+Route::get('/resetpassword/{email}', [App\Http\Controllers\Auth\ResetPController::class, 'resetPasswordPage']);
+Route::put('/password/{email}', [App\Http\Controllers\Auth\ResetPController::class, 'changePassword'])->name('changePassword');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

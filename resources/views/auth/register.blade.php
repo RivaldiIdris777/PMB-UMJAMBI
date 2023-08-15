@@ -111,7 +111,7 @@
                 <img src="{{ asset('') }}logo_um.png" alt="logo um" width="60" height="60">
                 <h6>Registrasi</h6>
             </header>
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('register2') }}">
                 @csrf
                 <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror"
                     name="nik" value="{{ old('nik') }}" required autocomplete="nik" autofocus

@@ -78,10 +78,9 @@ class MenuUserController extends Controller
 
         $link = 'transaksi';
 
-        $transaksi = Transaksi::findOrFail($id)->first();
+        $transaksi = Transaksi::where('id', $id)->first();
 
-
-        return view($this->folder . '.showtransaksi', [
+        return view($this->folder.'.showtransaksi', [
             'title' => $title,
             'transaksi' => $transaksi,
             'link' => $link

@@ -115,7 +115,7 @@
                                                                         style="font-size: 14px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #21212; line-height: 1.2;">
                                                                         <p
                                                                             style="margin: 0; font-size: 24px;font-weight: 700;">
-                                                                            Aktifasi Akunmu Disini</p>
+                                                                            Reset Passwordmu Disni</p>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -132,9 +132,8 @@
                                                                         style="font-size: 14px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #21212; line-height: 1.2;">
                                                                         <p
                                                                             style="margin: 0; font-size: 14px;line-height: 19px;">
-                                                                            Agar dapat melakukan pendaftaran selanjutnya. Cukup klik
-                                                                            tombol verifikasi dibawah ini untuk
-                                                                            verifikasi akunmu.</p>
+                                                                            Silahkan reset password baru mu dengan mengklik tombol
+                                                                            dibawah ini untuk mengarahkanmu ke halaman reset password.</p>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -147,14 +146,13 @@
                                                         <tr>
                                                             <td>
                                                                 <div align="center">
-                                                                    <a href="{{ url('/user/verifyemail/' .$user->email) }}"
+                                                                    <a href="{{ url('/resetpassword/' .$user->email) }}"
                                                                         style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#2ecc71;border-radius:4px;width:auto;border-top:1px solid #2ecc71;border-right:1px solid #ff6047;border-bottom:1px solid #ff6047;border-left:1px solid #ff6047;padding-top:5px;padding-bottom:5px;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;border-radius: 30px;"
                                                                         target="_blank">
                                                                         <span
                                                                             style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;">
                                                                             <span
-                                                                                style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;">Verifikasi
-                                                                                Sekarang</span>
+                                                                                style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;">Reset </span>
                                                                         </span>
                                                                     </a>
                                                                 </div>
