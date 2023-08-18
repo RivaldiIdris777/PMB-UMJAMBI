@@ -3,7 +3,7 @@
     width: 430px;
     position: relative;
 }
-.container .wrapper{
+.container .imgwrapper{
     position: relative;
     height: 250px;
     width: 100%;
@@ -16,10 +16,10 @@
     overflow: hidden;
 }
 
-.wrapper.active{
+.imgwrapper.active{
     border: none;
   }
-  .wrapper .image{
+  .imgwrapper .image{
     position: absolute;
     height: 100%;
     width: 100%;
@@ -27,22 +27,21 @@
     align-items: center;
     justify-content: center;
   }
-  .wrapper img{
+  .imgwrapper img{
     padding: 10px 10px;
     height: 100%;
-    width: 20%;
-    object-fit:cover;
+    width: 55%;
   }
-  .wrapper .icon{
+  .imgwrapper .icon{
     font-size: 100px;
     color: #9658fe;
   }
-  .wrapper .text{
+  .imgwrapper .text{
     font-size: 20px;
     font-weight: 500;
     color: #5B5B7B;
   }
-  .wrapper #cancel-btn i{
+  .imgwrapper #cancel-btn i{
     position: absolute;
     font-size: 20px;
     right: 15px;
@@ -51,13 +50,13 @@
     cursor: pointer;
     display: none;
   }
-  .wrapper.active:hover #cancel-btn i{
+  .imgwrapper.active:hover #cancel-btn i{
     display: block;
   }
-  .wrapper #cancel-btn i:hover{
+  .imgwrapper #cancel-btn i:hover{
     color: #e74c3c;
   }
-  .wrapper .file-name{
+  .imgwrapper .file-name{
     position: absolute;
     bottom: 0px;
     width: 100%;
@@ -67,7 +66,7 @@
     display: none;
     background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
   }
-  .wrapper.active:hover .file-name{
+  .imgwrapper.active:hover .file-name{
     display: block;
   }
 

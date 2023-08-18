@@ -1,158 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Aktivasi Akun</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <!---Custom CSS File--->
-    <style>
-        /* Import Google font - Poppins */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            width: 100%;
-            background: #009579;
-        }
-
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 430px;
-            width: 100%;
-            background: #fff;
-            border-radius: 7px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .container .registration {
-            display: none;
-        }
-
-        #check:checked~.registration {
-            display: block;
-        }
-
-        #check:checked~.login {
-            display: none;
-        }
-
-        #check {
-            display: none;
-        }
-
-        .container .form {
-            padding: 2rem;
-        }
-
-        .form header {
-            font-size: 2rem;
-            font-weight: 500;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .form input {
-            height: 60px;
-            width: 100%;
-            padding: 0 15px;
-            font-size: 17px;
-            margin-bottom: 1.3rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            outline: none;
-        }
-
-        .form input:focus {
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        .form a {
-            font-size: 16px;
-            color: #009579;
-            text-decoration: none;
-        }
-
-        .form a:hover {
-            text-decoration: underline;
-        }
-
-        .form input.button {
-            color: #fff;
-            background: #009579;
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            margin-top: 1.7rem;
-            cursor: pointer;
-            transition: 0.4s;
-        }
-
-        .form input.button:hover {
-            background: #006653;
-        }
-
-        .signup {
-            font-size: 17px;
-            text-align: center;
-        }
-
-        .signup label {
-            color: #009579;
-            cursor: pointer;
-        }
-
-        .signup label:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--favicon-->
+    <link rel="icon" href="{{ asset('') }}favicon.ico" type="image/png" />
+    <!--plugins-->
+    <link href="{{ asset('') }}rocker_admin/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="{{ asset('') }}rocker_admin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css"
+        rel="stylesheet" />
+    <link href="{{ asset('') }}rocker_admin/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- loader-->
+    <link href="{{ asset('') }}rocker_admin/assets/css/pace.min.css" rel="stylesheet" />
+    <script src="{{ asset('') }}rocker_admin/assets/js/pace.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('') }}rocker_admin/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('') }}rocker_admin/assets/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="{{ asset('') }}rocker_admin/assets/css/app.css" rel="stylesheet">
+    <link href="{{ asset('') }}rocker_admin/assets/css/icons.css" rel="stylesheet">
+    <title>Verify Email - Universitas Muhammadiyah Kota Jambi</title>
 </head>
 
-<body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
-    <div class="container">
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-        <div class="login form">
-            <header>Verifikasi Email</header>
-            @if (session('resent'))
-                <script type='text/javascript'>
-                    swal({
-                        title: "Berhasil",
-                        text: "Link aktivasi telah dikirimkan ke email {{ auth()->user()->email }}",
-                        type: "success"
-                    }).then(function() {
-                        event.preventDefault();
-                        document.getElementById('logout-form').submit();
-                    });
-                </script>
-            @endif
-            Sebelum melanjutkan, periksa email Anda untuk link aktivasi. Setelah Melakukan Aktivasi Silahkan Kembali Ke Halaman Login.
-            <a href="{{ route('login') }}" class="button btn btn-success">Kembali Ke Halaman Login</a>
-            <!-- <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                @csrf
-                <input type="submit" class="button" value="Kembali Ke Halaman Login">
-            </form> -->
+<body class="bg-login">
+    <!--wrapper-->
+    <div class="wrapper">
+        <header class="login-header shadow">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white rounded fixed-top rounded-0 shadow-sm">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('') }}logo_um.png" width="40" alt="" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1"
+                        aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-4">
+            <div class="container-fluid">
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+                    <div class="col mx-auto">
+                        <div class="mb-4 text-center">
+                            <img src="{{ asset('') }}logo_pmb.png" width="180" alt="" />
+                        </div>
+                        <div class="card mt-5 mt-lg-0">
+                            <div class="card-body">
+                                <div class="border p-4 rounded">
+                                    <div class="text-center"> <span>VERIFIKASI TERKIRIM</span>
+                                        <hr />
+                                        <h4>
+                                            Sebelum melanjutkan, periksa email Anda untuk link aktivasi. Setelah Melakukan Aktivasi Silahkan Kembali Ke Halaman Login.
+                                        </h4>
+                                        <a href="{{ route('login') }}" class="btn btn-primary">Kembali Ke Halaman Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end row-->
+            </div>
         </div>
+        <footer class="bg-white shadow-sm border-top p-2 text-center fixed-bottom">
+            <p class="mb-0">CopyLeft 2023. All right reserved.</p>
+        </footer>
     </div>
+    <!--end wrapper-->
+    <!-- Bootstrap JS -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <!--plugins-->
+    <script src="{{ asset('') }}rocker_admin/assets/js/jquery.min.js"></script>
+    <script src="{{ asset('') }}rocker_admin/assets/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="{{ asset('') }}rocker_admin/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="{{ asset('') }}rocker_admin/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <!--Password show & hide js -->
+    <script>
+        $(document).ready(function () {
+            $("#show_hide_password a").on('click', function (event) {
+                event.preventDefault();
+                if ($('#show_hide_password input').attr("type") == "text") {
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass("bx-hide");
+                    $('#show_hide_password i').removeClass("bx-show");
+                } else if ($('#show_hide_password input').attr("type") == "password") {
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass("bx-hide");
+                    $('#show_hide_password i').addClass("bx-show");
+                }
+            });
+        });
+
+    </script>
+    <!--app JS-->
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

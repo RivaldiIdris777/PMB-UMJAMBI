@@ -44,7 +44,7 @@ class DokumenMahasiswa extends Model
 
     public function admin()
     {
-        return $this->hasOne(User::class, 'id', 'admin_validasi');
+        return $this->belongsTo(User::class, 'admin_validasi', 'id');
     }
 
     protected function ktp(): Attribute

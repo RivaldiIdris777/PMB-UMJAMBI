@@ -20,7 +20,7 @@ class HomeController extends Controller
         if (Auth::user()->role == 'admin') {
             return view('home', ['title' => $this->title]);
         } else {
-            return view('home', ['title' => $this->title]);
+            return view('homeuser', ['title' => $this->title]);
         }
     }
 }

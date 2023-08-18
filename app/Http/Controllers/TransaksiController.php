@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Models\Mahasiswa;
 use App\Models\Prodi;
+use App\Models\Gelombang;
 use App\Models\User;
 use App\Models\ProgramKuliah;
 use Carbon\Carbon;
@@ -39,6 +40,9 @@ class TransaksiController extends Controller
     // Sudah Divalidasi
     public function index(Request $request)
     {
+        $gelombang = Gelombang::all();
+        // dd($request->gelombang);
+
         if ($request->ajax()) {
             // $data = Mahasiswa::select('*');
             return DataTables::of(Transaksi::where('status_validasi', 'Y'))
@@ -58,6 +62,9 @@ class TransaksiController extends Controller
                     return $td;
                 })
                 ->filter(function ($instance) use ($request) {
+                    if ($request->get('gelombang') != null) {
+                        $instance->where('gelombang', $request->get('gelombang'));
+                    }
                     if (!empty($request->get('search'))) {
                         $instance->where(function ($w) use ($request) {
                             $search = $request->get('search');
@@ -68,7 +75,7 @@ class TransaksiController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view($this->folder . '.index', ['title' => $this->title]);
+        return view($this->folder . '.index2', ['title' => $this->title, 'gelombang' => $gelombang]);
     }
 
     public function belumvalidasi(Request $request)

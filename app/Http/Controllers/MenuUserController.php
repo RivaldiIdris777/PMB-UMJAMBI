@@ -336,12 +336,12 @@ class MenuUserController extends Controller
 
         $provinsi = app('App\Http\Controllers\WilayahController')->provinsi();
 
-        $data   =  Mahasiswa::find($id)->firstOrFail();
+        $data   =  Mahasiswa::where('id', $id)->get();
 
-        $id_prov = $data->id_provinsi;
-        $id_kab = $data->id_kabupaten;
-        $id_kec = $data->id_kecamatan;
-        $id_kel = $data->id_kelurahan;
+        $id_prov = $data[0]->id_provinsi;
+        $id_kab = $data[0]->id_kabupaten;
+        $id_kec = $data[0]->id_kecamatan;
+        $id_kel = $data[0]->id_kelurahan;
 
         foreach ($provinsi->data as $value) {
             if ($id_prov == $value->id) {

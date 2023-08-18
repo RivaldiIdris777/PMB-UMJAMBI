@@ -53,10 +53,10 @@ class MahasiswaController extends Controller
             return DataTables::of(Mahasiswa::select('*'))
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('mahasiswa.show', $row->id) . '" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>';
-                    $btn .= '<a href="' . route('mahasiswa.edit', $row->id) . '" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>';
-                    $btn .= '<a href="' . url('mahasiswa/print/' . $row->id) . '" class="btn btn-sm btn-primary"><i class="fa fa-print"></i></a>';
-                    $btn .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" class="btn btn-sm btn-danger deleteMahasiswa"><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="' . route('mahasiswa.show', $row->id) . '" class="btn btn-sm btn-info text-white"><i class="bx bx-show-alt"></i></a>';
+                    $btn .= '<a href="' . route('mahasiswa.edit', $row->id) . '" class="btn btn-sm btn-warning text-white"><i class="bx bx-pencil"></i></a>';
+                    $btn .= '<a href="' . url('mahasiswa/print/' . $row->id) . '" class="btn btn-sm btn-primary"><i class="bx bx-printer"></i></a>';
+                    $btn .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" class="btn btn-sm btn-danger deleteMahasiswa"><i class="bx bx-trash-alt"></i></a>';
                     return $btn;
                 })
                 ->filter(function ($instance) use ($request) {
@@ -97,7 +97,7 @@ class MahasiswaController extends Controller
             $link = 'biodata';
         }
 
-        return view($this->folder . '.add', [
+        return view($this->folder . '.add2', [
             'link' => $link,
             'info_kuliah' => $info_kuliah,
             'prodi' => $prodi,
@@ -333,24 +333,20 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function show(Mahasiswa $mahasiswa)
+    public function show($id)
     {
-        $id = $mahasiswa->id;
-
-        // dd($mahasiswa->id);
-
         $provinsi = app('App\Http\Controllers\WilayahController')->provinsi();
 
         if (Auth::user()->role == 'admin') {
-            $id = Mahasiswa::where('id', $id)->firstOrFail();
+            $data = Mahasiswa::where('id', $id)->get();
         }
 
-        $data   =  Mahasiswa::find($id)->firstOrFail();
+        $data  =  Mahasiswa::where('id', $id)->get();
 
-        $id_prov = $data->id_provinsi;
-        $id_kab = $data->id_kabupaten;
-        $id_kec = $data->id_kecamatan;
-        $id_kel = $data->id_kelurahan;
+        $id_prov = $data[0]->id_provinsi;
+        $id_kab = $data[0]->id_kabupaten;
+        $id_kec = $data[0]->id_kecamatan;
+        $id_kel = $data[0]->id_kelurahan;
 
         foreach ($provinsi->data as $value) {
             if ($id_prov == $value->id) {
@@ -618,7 +614,7 @@ class MahasiswaController extends Controller
             'kel'               => $nama_kel,
         ];
 
-        return view($this->folder . '.biodata', [
+        return view($this->folder . '.biodata2', [
             'default' => $default,
             'data' => $data,
             'title' => $this->title

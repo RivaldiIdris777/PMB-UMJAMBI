@@ -1,138 +1,85 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <div class="">
-                <div class="page-title">
-                    <div class="title_left">
-                        <h3>Selamat Datang {{ auth()->user()->name }}</h3>
-                    </div>
-
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">Go!</button>
-                                </span>
+<div class="alert alert-primary border-0 bg-primary alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="ms-3 p-2">
+            <div class="text-white">Welcome {{ Auth::user()->name }} !! Anda memasuki admin akses</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Jumlah Mahasiswa Yang Mendaftar</p>
+                                <h4 class="my-1 text-info">4805</h4>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <div class="row">
-                    <div class="col-md-12 col-sm-12  ">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>Plain Page</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                            aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Settings 1</a>
-                                            <a class="dropdown-item" href="#">Settings 2</a>
-                                        </div>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                @if (session('status'))
-                                    {{ session('status') }}
-                                @endif
-                                {{ __('You are logged in!') }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6  ">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>Proses Pendaftaran</h2>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <ul class="list-unstyled timeline">
-                                    <li>
-                                        <div class="block">
-                                            <div class="tags">
-                                                <a href="" class="tag">
-                                                    <span>Pertama</span>
-                                                </a>
-                                            </div>
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>13 hours ago</span> by <a>Jane Smith</a>
-                                                </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
-                                                    makers. They were where you met the producers that could fund your
-                                                    project, and if the buyers liked your flick, they’d pay to Fast-forward
-                                                    and… <a>Read&nbsp;More</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="block">
-                                            <div class="tags">
-                                                <a href="" class="tag">
-                                                    <span>Kedua</span>
-                                                </a>
-                                            </div>
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>13 hours ago</span> by <a>Jane Smith</a>
-                                                </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
-                                                    makers. They were where you met the producers that could fund your
-                                                    project, and if the buyers liked your flick, they’d pay to Fast-forward
-                                                    and… <a>Read&nbsp;More</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="block">
-                                            <div class="tags">
-                                                <a href="" class="tag">
-                                                    <span>Ketiga</span>
-                                                </a>
-                                            </div>
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>13 hours ago</span> by <a>Jane Smith</a>
-                                                </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
-                                                    makers. They were where you met the producers that could fund your
-                                                    project, and if the buyers liked your flick, they’d pay to Fast-forward
-                                                    and… <a>Read&nbsp;More</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='lni lni-users'></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /page content -->
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-success">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Jumlah Data User</p>
+                                <h4 class="my-1 text-success">34.6%</h4>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
+                                    class='bx bxs-user'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-danger">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Jumlah Data Dokumen</p>
+                                <h4 class="my-1 text-danger">$84,245</h4>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i
+                                    class='bx bxs-folder'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-warning">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Jumlah Data Bukti Transaksi</p>
+                                <h4 class="my-1 text-warning">8.4K</h4>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i
+                                    class='bx bxs-wallet'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h6 class="mb-0">Halaman Main</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
     @endsection
