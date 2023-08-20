@@ -1,68 +1,49 @@
-<?php $__env->startPush('css'); ?>
-<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<link href="<?php echo e(asset('')); ?>vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-<link href="<?php echo e(asset('')); ?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<?php $__env->stopPush(); ?>
-
-
 <?php $__env->startSection('content'); ?>
-<!-- page content -->
-<div class="right_col" role="main">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h5><?php echo e($title); ?></h5>
-            </div>
+<div class="alert alert-primary border-0 bg-primary alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="ms-3 p-2">
+            <div class="text-white"><?php echo e(Auth::user()->name); ?> !! <?php echo e($title); ?></div>
         </div>
-
-        <div class="clearfix"></div>
-
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Pilih Konfirmasi Pembayaran dibawah ini </h2>
-                        <li class="nav navbar-right panel_toolbox">
-
-                        </li>
-                        <li class="nav navbar-right panel_toolbox">
-
-                        </li>
-                        <div class="clearfix"></div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card radius-10">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <div class="p-2">
+                        <h4 class="mb-0">Bukti Biaya Pendaftaran</h4>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-12 col-sm-4 d-flex justify-content-center">
-            <div class="col-md-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2><i class="fa fa-id-card-o"></i>Masukkan Bukti Pembayaran (1)</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <?php $__empty_1 = true; $__currentLoopData = $transaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tf): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <a href="#" class="btn btn-success"><i class="fa fa-check"></i> Sudah Memasukkan Data Transaksi</a>
-                        <a href="<?php echo e(route('transaksi.showTransaksi', $tf->id)); ?>" class="btn btn-success">Cek Data Transaksi <i class="fa fa-arrow-right"></i></a>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                            <a href="#" class="btn btn-warning">Belum Memasukkan Data Transaksi</a>
-                            <a href="<?php echo e(route('transaksi.createByUser')); ?>" class="btn btn-warning">Silahkan Masukkan Bukti Transaksi Disini <i class="fa fa-arrow-right"></i></a>
-                        <?php endif; ?>
+        <div class="card radius-10">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <div class="p-2">
+                        <h6 class="mb-0">Masukkan Bukti Pembayaran</h6>
                     </div>
                 </div>
+            </div>
+            <div class="card-body">
+                <?php $__empty_1 = true; $__currentLoopData = $transaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tf): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                <a href="#" class="btn btn-success"><i class="fa fa-check"></i> Sudah Memasukkan Data Transaksi</a>
+                <a href="<?php echo e(route('transaksi.showTransaksi', $tf->id)); ?>" class="btn btn-success">Cek Data Transaksi <i
+                        class="fa fa-arrow-right"></i></a>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                <a href="#" class="btn btn-warning">Belum Memasukkan Data Transaksi</a>
+                <a href="<?php echo e(route('transaksi.createByUser')); ?>" class="btn btn-warning">Silahkan Masukkan Bukti
+                    Transaksi Disini <i class="fa fa-arrow-right"></i></a>
+                <?php endif; ?>
             </div>
         </div>
 
     </div>
-</div>
-<!-- /page content -->
-
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startPush('js'); ?>
-<script src="<?php echo e(asset('')); ?>vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo e(asset('')); ?>vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <?php $__env->stopSection(); ?>
+    <?php $__env->startPush('js'); ?>
+    <script src="<?php echo e(asset('')); ?>rocker_admin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo e(asset('')); ?>rocker_admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Folder_project\Laravel_project\pmbmahasiswa\resources\views/users/transaksi/index.blade.php ENDPATH**/ ?>

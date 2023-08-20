@@ -11,11 +11,13 @@
 <div class="row">
     <div class="col-12">
         <div class="card radius-10">
+            <div class="card-header">
+                <h6>Biodata Calon Mahasiswa</h6>
+            </div>
             <div class="card-body">
                 <div>
-                    <h6>Cari Berdasarkan Gelombang</h6>
                     <div class="row">
-                        <div class="col-sm-3 mail_list_column">
+                        <div class="col-sm-3 mail_list_column mt-2">
                             <div class="mail_list text-center">
                                 <img class="mb-3" src="{{ Storage::url('public/mahasiswas/').$data[0]->gambar }}"
                                     alt="{{ $data[0]->nama_mahasiswa }}" widt="200" height="200">
@@ -26,7 +28,7 @@
                                 </div>
                                 <div class="right">
                                     Nama Mahasiswa
-                                    <h3>{{ $data[0]->nama_mahasiswa }}</h3>
+                                    <h6>{{ $data[0]->nama_mahasiswa }}</h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -35,7 +37,7 @@
                                 </div>
                                 <div class="right">
                                     Nomor Pendaftaran
-                                    <h3>{{ $data[0]->no_registrasi }}</h3>
+                                    <h6>{{ $data[0]->no_registrasi }}</h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -44,7 +46,7 @@
                                 </div>
                                 <div class="right">
                                     Nomor Induk Kependudukan
-                                    <h3>{{ $data[0]->nik }}</h3>
+                                    <h6>{{ $data[0]->nik }}</h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -53,7 +55,7 @@
                                 </div>
                                 <div class="right">
                                     Nomor Induk Siswa Nasional
-                                    <h3>{{ $data[0]->nisn }}</h3>
+                                    <h6>{{ $data[0]->nisn }}</h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -62,8 +64,8 @@
                                 </div>
                                 <div class="right">
                                     Tempat, Tanggal Lahir
-                                    <h3>{{ $data[0]->tempat_lahir ? $data[0]->tempat_lahir . ', ' : '' . $data[0]->tanggal_lahir }}
-                                    </h3>
+                                    <h6>{{ $data[0]->tempat_lahir ? $data[0]->tempat_lahir . ', ' : '' . $data[0]->tanggal_lahir }}
+                                    </h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -72,7 +74,7 @@
                                 </div>
                                 <div class="right">
                                     Jenis Kelamin
-                                    <h3>{{ $data[0]->tempat_lahir . ', ' . $data[0]->tanggal_lahir }}</h3>
+                                    <h6>{{ $data[0]->tempat_lahir . ', ' . $data[0]->tanggal_lahir }}</h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -81,7 +83,7 @@
                                 </div>
                                 <div class="right">
                                     Agama
-                                    <h3>{{ Str::ucfirst(Str::lower($data[0]->agama()->first()->name)) }}</h3>
+                                    <h6>{{ Str::ucfirst(Str::lower($data[0]->agama()->first()->name)) }}</h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -90,14 +92,14 @@
                                 </div>
                                 <div class="right">
                                     Alamat
-                                    <h3>{{ $data[0]->jalan ? 'Jalan ' . $data[0]->jalan : '' }}
+                                    <h6>{{ $data[0]->jalan ? 'Jalan ' . $data[0]->jalan : '' }}
                                         {{ $data[0]->rt ? 'RT/RW ' . $data[0]->rt : '' }}
                                         {{ $default['kel'] ? 'Kelurahan ' . $default['kel'] : '' }}
                                         {{ $default['kec'] ? 'Kecamatan ' . $default['kec'] : '' }}
                                         <br>
                                         {{ $default['kab'] ? Str::title((Str::lower($default['kab'])))  : '' }}
                                         {{ $default['prov'] ? ', ' . Str::title(Str::lower($default['prov']))  : '' }}
-                                    </h3>
+                                    </h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -106,7 +108,7 @@
                                 </div>
                                 <div class="right">
                                     Nomor WhatsApp
-                                    <h3>{{ $data[0]->hp }}</h3>
+                                    <h6>{{ $data[0]->hp }}</h6>
                                 </div>
                             </div>
                             <div class="mail_list">
@@ -115,7 +117,7 @@
                                 </div>
                                 <div class="right">
                                     Email
-                                    <h3>{{ $data[0]->email }}</h3>
+                                    <h6>{{ $data[0]->email }}</h6>
                                 </div>
                             </div>
                         </div>

@@ -91,7 +91,7 @@ class MenuUserController extends Controller
     public function createMahasiswa()
     {
         $folder = 'users.mahasiswa';
-        $title = 'Daftar Calon Mahasiswa';
+        $title = 'Silahkan Masukkan Bukti Transaksi';
         $link = 'mahasiswa';
 
         $provinsi = app('App\Http\Controllers\WilayahController')->provinsi();
@@ -529,7 +529,7 @@ class MenuUserController extends Controller
         $imagektp = $request->file('d_ktp');
         $nameKtp = $no_registrasi  . "-" . "KTP" . "-" . $nama_mahasiswa . "." . $request->file('d_ktp')->getClientOriginalExtension();
         $pathktp = 'app/public/ktp/'.$nameKtp;
-        $compressktp = Image::make($imagektp)->fit(1920, 1080);
+        $compressktp = Image::make($imagektp)->resize(1920, 1080);
         // $compressktp->resize(4000, 6000);
         $compressktp->save(\storage_path($pathktp), 50);
 
@@ -537,7 +537,7 @@ class MenuUserController extends Controller
         $imagekk = $request->file('d_kk');
         $nameKK = $no_registrasi  . "-" . "KK" . "-" . $nama_mahasiswa . "." . $request->file('d_kk')->getClientOriginalExtension();
         $pathKK = 'app/public/kk/' . $nameKK;
-        $compresskk = Image::make($imagekk)->fit(1080, 1000);
+        $compresskk = Image::make($imagekk)->resize(1920, 1080);
         // $compresskk->resize(4000, 6000);
         $compresskk->save(\storage_path($pathKK), 30);
 
@@ -573,6 +573,114 @@ class MenuUserController extends Controller
         }
 
         return redirect()->route('usermenu.index');
+    }
+
+    public function editDokumen($id)
+    {
+        $link = 'dokumenmahasiswa';
+        $folder = 'users.dokumenmahasiswa';
+
+        $data = DokumenMahasiswa::where('nik', $id)->first();
+        return view($folder . '.edit', [
+            'link' => $link,
+            'title' => $this->title,
+            'data' => $data,
+        ]);
+    }
+
+    public function updateDokumenByUser(Request $request, $id)
+    {
+        $cekData = DokumenMahasiswa::where('nik', $id)->first();
+        $nik = $cekData->nik;
+        $cekMahasiswa = Mahasiswa::where('nik', $nik)->first();
+        $no_registrasi = $cekMahasiswa->no_registrasi;
+
+        $message = [
+            'd_ktp' => [
+                'jpeg' => 'File KTP Wajib di upload Format Jpg, PNG, Jpeg',
+                'jpg' => 'File KTP Wajib di upload Jpg, PNG, Jpeg',
+                'png' => 'File KTP Wajib di upload Jpg, PNG, Jpeg'
+            ],
+            'd_kk' => [
+                'jpeg' => 'File KK Wajib di upload Format Jpg, PNG, Jpeg',
+                'jpg' => 'File KK Wajib di upload Jpg, PNG, Jpeg',
+                'png' => 'File KK Wajib di upload Jpg, PNG, Jpeg'
+            ],
+            'dokumen_wajib' => [
+                'required' => 'Harus memasukkan file dokumen wajib',
+                'pdf' => 'File Harus Format PDF',
+                'size:5120' => 'Maksimum File 5 mb'
+            ],
+            'dokumen_pendukung' => [
+                'required' => 'Harus memasukkan file dokumen pendukung',
+                'pdf' => 'File Harus Format PDF',
+                'size:5120' => 'Maksimum File 5 mb'
+            ],
+
+        ];
+
+        $this->validate($request, [
+            'd_ktp' => 'mimes:jpg,jpeg,png',
+            'd_kk' => 'mimes:jpg,jpeg,png',
+            'dokumen_pendukung' => 'required|mimes:pdf|file|max:5242880',
+            'dokumen_wajib' => 'required|mimes:pdf|file|max:5242880',
+        ], $message);
+
+        $ktp = Storage::disk('local')->delete('public/ktp/'.basename($cekData->d_ktp));
+        $kk = Storage::disk('local')->delete('public/kk/'.basename($cekData->d_kk));
+        $dokumen = Storage::disk('local')->delete('public/dokumen_pendukung/'.basename($cekData->dokumen_pendukung));
+        $dokumenwajib = Storage::disk('local')->delete('public/dokumen_wajib/'.basename($cekData->dokumen_wajib));
+
+        $date = date('Y-m-d');
+        $no_registrasi = $no_registrasi;
+        $nama_mahasiswa = $cekMahasiswa->nama_mahasiswa;
+        $nik_mahasiswa = $cekMahasiswa->nik;
+        $id_mahasiswa = $cekMahasiswa->id;
+
+        // d_ktp
+        $imagektp = $request->file('d_ktp');
+        $nameKtp = $no_registrasi  . "-" . "KTP" . "-" . $nama_mahasiswa . "." . $request->file('d_ktp')->getClientOriginalExtension();
+        $pathktp = 'app/public/ktp/'.$nameKtp;
+        $compressktp = Image::make($imagektp)->resize(1080, 1080);
+        // $compressktp->resize(4000, 6000);
+        $compressktp->save(\storage_path($pathktp), 50);
+
+        // d_kk
+        $imagekk = $request->file('d_kk');
+        $nameKK = $no_registrasi  . "-" . "KK" . "-" . $nama_mahasiswa . "." . $request->file('d_kk')->getClientOriginalExtension();
+        $pathKK = 'app/public/kk/' . $nameKK;
+        $compresskk = Image::make($imagekk)->resize(1920, 1080);
+        // $compresskk->resize(4000, 6000);
+        $compresskk->save(\storage_path($pathKK), 30);
+
+        // dokumen_kelengkapan
+        $dokumen = $request->file('dokumen_pendukung');
+        $nameDokumen = $no_registrasi  . "-" . "dokumen_pendukung" . "-" . $nama_mahasiswa . "." . $request->file('dokumen_pendukung')->getClientOriginalExtension();
+        $pathDokumen = 'public/dokumen_pendukung';
+        $dokumen->storeAs($pathDokumen, $nameDokumen);
+
+        // dokumen_wajib
+        $dokumenwajib = $request->file('dokumen_wajib');
+        $nameDokumenwajib = $no_registrasi  . "-" . "dokumen_wajib" . "-" . $nama_mahasiswa . "." . $request->file('dokumen_wajib')->getClientOriginalExtension();
+        $pathDokumenwajib = 'public/dokumen_wajib';
+        $dokumenwajib->storeAs($pathDokumenwajib, $nameDokumenwajib);
+
+        $simpan = DB::table('tb_dokumenmahasiswa')->where('id', $id)->update([
+            'd_ktp'          => $nameKtp,
+            'd_kk'           => $nameKK,
+            'nik'           => $nik_mahasiswa,
+            'dokumen_wajib' => $nameDokumenwajib,
+            'dokumen_pendukung' => $nameDokumen,
+            'id_mahasiswa' => $id_mahasiswa,
+        ]);
+
+        if ($simpan) {
+            Session::flash('message', "Data Berhasil Disimpan");
+        } else {
+            Session::flash('message', "Gagal Berhasil Disimpan");
+        }
+
+        return redirect()->route('dokumenmahasiswa.showdokumen', $id);
     }
 
     public function showDokumen($id)

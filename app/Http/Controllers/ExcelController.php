@@ -60,7 +60,7 @@ class ExcelController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view($folder . '.mahasiswa', ['title' => $title, 'gelombang' => $gelombang]);
+        return view($folder . '.mahasiswa2', ['title' => $title, 'gelombang' => $gelombang]);
     }
 
     public function export()

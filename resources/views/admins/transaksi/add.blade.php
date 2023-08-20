@@ -1,19 +1,19 @@
 @extends('layouts.app')
-@push('styles')
-<link href="{{ asset('') }}css/style.css" rel="stylesheet">
-@endpush
 @section('content')
-<!-- page content -->
-<div class="right_col" role="main">
-    <div class="">
-        <div class="row">
-            <div class="col-md-12 col-sm-12  ">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Form Pengisian Transaksi</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
+<div class="alert alert-primary border-0 bg-primary alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="ms-3 p-2">
+            <div class="text-white">Welcome {{ Auth::user()->name }} !! Anda memasuki admin akses</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div>
+                    <h6>Form Pengisian Transaksi</h6>
                     <form action="{{ route($link . '.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 col-sm-12 mb-10">
@@ -79,9 +79,8 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-@push('js')
-<script></script>
-@endpush
-@endsection
+    @endsection
+    @push('js')
+    <script src="{{ asset('') }}rocker_admin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('') }}rocker_admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    @endpush

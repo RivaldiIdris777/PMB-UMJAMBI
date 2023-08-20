@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('d_nik')->nullable();
             $table->string('d_kk')->nullable();
             $table->string('dokumen_pendukung')->nullable();
-            $table->enum('status_kelengkapan', ['lengkap', 'tidak_lengkap'])->default('tidak_lengkap');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

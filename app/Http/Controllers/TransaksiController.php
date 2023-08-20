@@ -48,17 +48,13 @@ class TransaksiController extends Controller
             return DataTables::of(Transaksi::where('status_validasi', 'Y'))
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('transaksi.show', $row->id) . '" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>';
-                    $btn .= '<a href="' . route('transaksi.edit', $row->id) . '" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>';
-                    $btn .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" class="btn btn-sm btn-danger transaksi"><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="' . route('transaksi.show', $row->id) . '" class="btn btn-sm btn-info text-white"><i class="bx bx-show-alt"></i></a>';
+                    $btn .= '<a href="' . route('transaksi.edit', $row->id) . '" class="btn btn-sm btn-warning text-white"><i class="bx bx-pencil"></i></a>';
+                    $btn .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" class="btn btn-sm btn-danger transaksi text-white"><i class="bx bx-trash-alt"></i></a>';
                     return $btn;
                 })
                 ->editColumn('id_user', function($row) {
-                    $td = $row->user()->first()->name;
-                    return $td;
-                })
-                ->editColumn('status_validasi', function($row){
-                    $td = $row->status_validasi==='Y' ? 'Sudah Divalidasi' : 'Belum Divalidasi';
+                    $td = $row->user()->first()->name ?? '';
                     return $td;
                 })
                 ->filter(function ($instance) use ($request) {
@@ -75,7 +71,7 @@ class TransaksiController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view($this->folder . '.index2', ['title' => $this->title, 'gelombang' => $gelombang]);
+        return view($this->folder . '.index', ['title' => $this->title, 'gelombang' => $gelombang]);
     }
 
     public function belumvalidasi(Request $request)
@@ -85,9 +81,9 @@ class TransaksiController extends Controller
             return DataTables::of(Transaksi::where('status_validasi', 'N'))
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('transaksi.show', $row->id) . '" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>';
-                    $btn .= '<a href="' . route('transaksi.edit', $row->id) . '" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>';
-                    $btn .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" class="btn btn-sm btn-danger transaksi"><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="' . route('transaksi.show', $row->id) . '" class="btn btn-sm btn-info text-white"><i class="bx bx-show-alt"></i></a>';
+                    $btn .= '<a href="' . route('transaksi.edit', $row->id) . '" class="btn btn-sm btn-warning text-white"><i class="bx bx-pencil"></i></a>';
+                    $btn .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" class="btn btn-sm btn-danger transaksi text-white"><i class="bx bx-trash-alt"></i></a>';
                     return $btn;
                 })
                 ->editColumn('id_user', function($row) {
@@ -198,7 +194,7 @@ class TransaksiController extends Controller
         $imageberkas = $request->file('berkas');
         $nameBukti = $nikuser . "-" . "Bukti_Pembayaran" . "-" . $emailUser . "." . $request->file('berkas')->getClientOriginalExtension();
         $path = 'app/public/bukti_pembayaran/'. $nameBukti;
-        $compressBukti = Image::make($imageberkas)->fit(1080, 1080);
+        $compressBukti = Image::make($imageberkas)->resize(1080, 1080);
         $compressBukti->save(\storage_path($path), 80);
 
         $simpan = DB::table('tb_transaksi')->insert([
@@ -297,7 +293,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id)->first();
 
 
-        return view($this->folder . '.show', [
+        return view($this->folder . '.show2', [
             'title' => $this->title,
             'transaksi' => $transaksi,
             'link' => $link

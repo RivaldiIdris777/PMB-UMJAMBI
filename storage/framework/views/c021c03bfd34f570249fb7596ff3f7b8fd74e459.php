@@ -1,14 +1,14 @@
-@push('css')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<?php $__env->startPush('css'); ?>
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<link href="{{ asset('') }}rocker_admin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-@endpush
-@extends('layouts.app')
-@section('content')
+<link href="<?php echo e(asset('')); ?>rocker_admin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<?php $__env->stopPush(); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="alert alert-primary border-0 bg-primary alert-dismissible fade show py-2">
     <div class="d-flex align-items-center">
         <div class="ms-3 p-2">
-            <div class="text-white">Welcome {{ Auth::user()->name }} !! Anda memasuki admin akses</div>
+            <div class="text-white">Welcome <?php echo e(Auth::user()->name); ?> !! Anda memasuki admin akses</div>
         </div>
     </div>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -23,10 +23,11 @@
                         <label class="input-group-text" for="inputGroupSelect01">Gelombang Ke Berapa</label>
                         <select name="gelombang" id="gelombang" class="form-select">
                             <option value="">Semua Gelombang</option>
-                            @foreach ($gelombang as $item)
-                            <option value="{{ $item->id_gelombang }}">{{ $item->nama_gelombang }}
+                            <?php $__currentLoopData = $gelombang; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($item->id_gelombang); ?>"><?php echo e($item->nama_gelombang); ?>
+
                             </option>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
                 </div>
@@ -34,6 +35,7 @@
         </div>
         <div class="card radius-10">
             <div class="card-body">
+            <h6>Data Transaksi Tervalidasi</h6>
             <table id="table-datatable" class="table table-striped table-bordered dt-responsive nowrap data-table"
                 cellspacing="0" width="100%">
                 <thead>
@@ -53,10 +55,10 @@
             </div>
         </div>
     </div>
-    @endsection
-    @push('js')
-    <script src="{{ asset('') }}rocker_admin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('') }}rocker_admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <?php $__env->stopSection(); ?>
+    <?php $__env->startPush('js'); ?>
+    <script src="<?php echo e(asset('')); ?>rocker_admin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo e(asset('')); ?>rocker_admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $.ajaxSetup({
@@ -69,7 +71,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('transaksi.index') }}",
+                    url: "<?php echo e(route('transaksi.index')); ?>",
                     data: function (d) {
                         d.gelombang = $('#gelombang').val(),
                             d.search = $('input[type="search"]').val()
@@ -92,7 +94,7 @@
                     {
                         data: 'berkas',
                         render: function (data) {
-                            return `<img src="{{ Storage::url('public/bukti_pembayaran/${data}') }}" width="40" height="60">`;
+                            return `<img src="<?php echo e(Storage::url('public/bukti_pembayaran/${data}')); ?>" width="40" height="60">`;
                         }
                     },
                     {
@@ -120,7 +122,7 @@
                 confirm("Anda yakin ingin menghapus data ini ?");
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ route('transaksi.store') }}" + '/' + id,
+                    url: "<?php echo e(route('transaksi.store')); ?>" + '/' + id,
                     success: function (data) {
                         table.draw();
                     },
@@ -133,4 +135,6 @@
         })
 
     </script>
-    @endpush
+    <?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Folder_project\Laravel_project\pmbmahasiswa\resources\views/admins/transaksi/index.blade.php ENDPATH**/ ?>

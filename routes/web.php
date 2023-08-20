@@ -74,6 +74,8 @@ Route::middleware(['auth', 'verified', 'checkRole:admin'])->group(function () {
     Route::put('dokumenmahasiswa/tolakvalidasikk/{id}', [DokumenMahasiswaController::class, 'tolakValidasiKK'])->name('dokumenmahasiswa.tolakvalidasikk');
     Route::put('dokumenmahasiswa/tolakvalidasiwajib/{id}', [DokumenMahasiswaController::class, 'tolakValidasiWajib'])->name('dokumenmahasiswa.tolakvalidasiwajib');
     Route::put('dokumenmahasiswa/tolakvalidasipendukung/{id}', [DokumenMahasiswaController::class, 'tolakValidasiPendukung'])->name('dokumenmahasiswa.tolakvalidasipendukung');
+    Route::put('dokumenmahasiswa/validasikonfirmasiditerima/{id}', [DokumenMahasiswaController::class, 'validasikonfirmasiditerima'])->name('dokumenmahasiswa.validasikonfirmasiditerima');
+    Route::put('dokumenmahasiswa/validasikonfirmasibelumditerima/{id}', [DokumenMahasiswaController::class, 'validasikonfirmasibelumditerima'])->name('dokumenmahasiswa.validasikonfirmasibelumditerima');
 
     // Cetak Formulir Pendaftaran
     Route::get('/mahasiswa/print/{id}', [MahasiswaController::class, 'print']);
@@ -114,5 +116,7 @@ Route::middleware(['auth', 'verified', 'checkRole:user'])->group(function () {
     Route::get('createDokumen', [MenuUserController::class, 'createDokumen'])->name('mahasiswa.createDokumen');
     Route::post('storeDokumen', [MenuUserController::class, 'storeDokumen'])->name('mahasiswa.storeDokumen');
     Route::get('showdokumen/{id}', [MenuUserController::class, 'showDokumen'])->name('dokumenmahasiswa.showdokumen');
+    Route::get('editdokumen/{id}', [MenuUserController::class, 'editDokumen'])->name('dokumenmahasiswa.editDokumen');
+    Route::put('updatedokumenbyuser/{id}', [MenuUserController::class, 'updateDokumenByUser'])->name('dokumenmahasiswa.updateDokumenByUser');
 
 });

@@ -36,7 +36,7 @@
             <div class="card-body">
                 <div>
                     <h6 class="mb-0">Data Mahasiswa</h6>
-                    <li class="nav ml-auto panel_toolbox mt-3"><a href="{{ route('mahasiswa.create') }}"
+                    <li class="nav panel_toolbox mt-3"><a href="{{ route('mahasiswa.create') }}"
                             class="btn btn-sm btn-success">Tambah Data</a>
                     </li>
                     <div class="table-responsive mt-3">

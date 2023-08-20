@@ -34,8 +34,8 @@
         </div>
         <div class="card radius-10">
             <div class="card-body">
-                <h6 class="mb-0">Data Berkas Mahasiswa</h6>
-                <table id="table-datatable"
+                <h6 class="mb-3">Data Berkas Mahasiswa</h6>
+                <table id="table-datatable" style=" display: block; max-width: -moz-fit-content; max-width: fit-content; margin: 0 auto; overflow-x: auto; white-space: nowrap;"
                     class="table table-striped table-bordered dt-responsive nowrap text-center data-table"
                     cellspacing="0" width="100%">
                     <thead>
@@ -44,7 +44,10 @@
                             <th>Phas Foto</th>
                             <th>Nama</th>
                             <th>Nomor Induk Kependudukan</th>
-                            <th>Status Berkas</th>
+                            <th>KTP Status</th>
+                            <th>KK Status</th>
+                            <th>Dokumen Wajib</th>
+                            <th>Dokumen Pendukung</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -97,10 +100,23 @@
                         name: 'nik'
                     },
                     {
-                        data: 'status_kelengkapan',
-                        name: 'status_kelengkapan'
+                        data: 'ktp_status',
+                        name: 'ktp_status'
                     },
                     {
+                        data: 'kk_status',
+                        name: 'kk_status'
+                    },
+                    {
+                        data: 'dokumen_wajib_status',
+                        name: 'dokumen_wajib_status'
+                    },
+                    {
+                        data: 'dokumen_pendukung_status',
+                        name: 'dokumen_pendukung_status'
+                    },
+                    {
+
                         data: 'action',
                         name: 'action',
                     },

@@ -155,7 +155,7 @@
                                 <div class="col-sm-9 mail_view">
                                     <div class="inbox-body">
                                         <div class="view-mail">
-                                            <table class="table  no-margin">
+                                            <table class="table no-margin">
                                                 <tbody>
                                                     <tr>
                                                         <td colspan="4"><strong>Data Perkuliahan</strong></td>
