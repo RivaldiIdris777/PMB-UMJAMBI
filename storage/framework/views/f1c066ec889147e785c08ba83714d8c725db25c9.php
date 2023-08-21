@@ -5,7 +5,7 @@
 <div class="alert alert-primary border-0 bg-primary alert-dismissible fade show py-2">
     <div class="d-flex align-items-center">
         <div class="ms-3 p-2">
-            <div class="text-white">Welcome <?php echo e(Auth::user()->name); ?> !! Anda memasuki admin akses</div>
+            <div class="text-white"><?php echo e(Auth::user()->name); ?>, <?php echo e($title); ?></div>
         </div>
     </div>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

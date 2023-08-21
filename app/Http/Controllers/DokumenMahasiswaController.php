@@ -47,22 +47,6 @@ class DokumenMahasiswaController extends Controller
                     $btn = '<a href="' . route('dokumenmahasiswa.show', $row->nik) . '" class="btn btn-sm btn-warning"><i class="fa fa-book"></i> Lihat Dokumen</a>';
                     return $btn;
                 })
-                ->editColumn('ktp_status', function($row) {
-                    $td = $row->ktp_status == 'Y' ? 'Tervalidasi' : 'Belum Diperiksa / Belum Lengkap';
-                    return $td;
-                })
-                ->editColumn('kk_status', function($row) {
-                    $td = $row->kk_status == 'Y' ? 'Tervalidasi' : 'Belum Diperiksa / Belum Lengkap';
-                    return $td;
-                })
-                ->editColumn('dokumen_wajib_status', function($row) {
-                    $td = $row->dokumen_wajib_status == 'Y' ? 'Tervalidasi' : 'Belum Diperiksa / Belum Lengkap';
-                    return $td;
-                })
-                ->editColumn('dokumen_pendukung_status', function($row) {
-                    $td = $row->dokumen_pendukung_status == 'Y' ? 'Tervalidasi' : 'Belum Diperiksa / Belum Lengkap';
-                    return $td;
-                })
                 ->filter(function ($instance) use ($request) {
                     if ($request->get('gelombang') != null) {
                         $instance->where('gelombang', $request->get('gelombang'));
@@ -218,8 +202,7 @@ class DokumenMahasiswaController extends Controller
     public function show($id)
     {
         $data = Mahasiswa::where('nik', $id)->first();
-        $dokumen = DokumenMahasiswa::where('id', $id)->get();
-
+        $dokumen = DokumenMahasiswa::where('nik', $id)->get();
 
         return view($this->folder . '.show', [
             'title' => $this->title,
@@ -231,7 +214,7 @@ class DokumenMahasiswaController extends Controller
     public function dokumenPendukung($id)
     {
         $data = Mahasiswa::where('nik', $id)->first();
-        $dokumen = DokumenMahasiswa::where('nik', $id)->get();
+        $dokumen = DokumenMahasiswa::where('id', $id)->get();
 
         $pathDokumen = Storage::path('public/dokumen_pendukung/').$dokumen[0]->dokumen_pendukung;
 
@@ -249,7 +232,7 @@ class DokumenMahasiswaController extends Controller
             'admin_validasi' => Auth::user()->id
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -271,7 +254,7 @@ class DokumenMahasiswaController extends Controller
             'admin_validasi' => Auth::user()->id
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -294,7 +277,7 @@ class DokumenMahasiswaController extends Controller
 
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -317,7 +300,7 @@ class DokumenMahasiswaController extends Controller
 
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -336,7 +319,7 @@ class DokumenMahasiswaController extends Controller
             'keterangan' =>$request->keterangan
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -359,7 +342,7 @@ class DokumenMahasiswaController extends Controller
             'admin_validasi' => Auth::user()->id
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -381,7 +364,7 @@ class DokumenMahasiswaController extends Controller
             'admin_validasi' => Auth::user()->id
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -403,7 +386,7 @@ class DokumenMahasiswaController extends Controller
             'admin_validasi' => Auth::user()->id
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -425,7 +408,7 @@ class DokumenMahasiswaController extends Controller
             'admin_validasi' => Auth::user()->id
         ]);
 
-        $getId = $validasi[0]->id;
+        $getId = $validasi[0]->nik;
 
         if ($validasi) {
             Session::flash('message', "Data Berhasil Disimpan");
@@ -442,13 +425,15 @@ class DokumenMahasiswaController extends Controller
             'status_dokumen_final' => 'diterima',
         ]);
 
+        $getId = $validasi[0]->nik;
+
         if ($simpan) {
             Session::flash('message', "Data Berhasil Disimpan");
         } else {
             Session::flash('message', "Gagal Berhasil Disimpan");
         }
 
-        return redirect()->route('dokumenmahasiswa.show', $id);
+        return redirect()->route('dokumenmahasiswa.show', $getId);
     }
 
     public function validasikonfirmasibelumditerima(DokumenMahasiswa $dokumen, $id)
@@ -457,13 +442,15 @@ class DokumenMahasiswaController extends Controller
             'status_dokumen_final' => 'belum_diterima',
         ]);
 
+        $getId = $validasi[0]->nik;
+
         if ($simpan) {
             Session::flash('message', "Data Berhasil Disimpan");
         } else {
             Session::flash('message', "Gagal Berhasil Disimpan");
         }
 
-        return redirect()->route('dokumenmahasiswa.show', $id);
+        return redirect()->route('dokumenmahasiswa.show', $getId);
     }
 
     /**
@@ -493,8 +480,8 @@ class DokumenMahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cekData = DokumenMahasiswa::where('id', $id)->first();
-        $nik = $cekData->nik;
+        $cekData = DokumenMahasiswa::where('nik', $id)->first();
+        $nik = $id;
         $cekMahasiswa = Mahasiswa::where('nik', $nik)->first();
         $no_registrasi = $cekMahasiswa->no_registrasi;
 
@@ -523,8 +510,8 @@ class DokumenMahasiswaController extends Controller
         ];
 
         $this->validate($request, [
-            'd_ktp' => 'mimes:jpg,jpeg,png',
-            'd_kk' => 'mimes:jpg,jpeg,png',
+            'd_ktp' => 'image',
+            'd_kk'  => 'image',
             'dokumen_pendukung' => 'required|mimes:pdf|file|max:5242880',
             'dokumen_wajib' => 'required|mimes:pdf|file|max:5242880',
         ], $message);
@@ -535,18 +522,16 @@ class DokumenMahasiswaController extends Controller
         $dokumenwajib = Storage::disk('local')->delete('public/dokumen_wajib/'.basename($cekData->dokumen_wajib));
 
         $date = date('Y-m-d');
-        $no_registrasi = $cekMahasiswa->no_registrasi;
         $nama_mahasiswa = $cekMahasiswa->nama_mahasiswa;
         $nik_mahasiswa = $cekMahasiswa->nik;
         $id_mahasiswa = $cekMahasiswa->id;
 
-        // d_ktp
+        // d_kk
         $imagektp = $request->file('d_ktp');
         $nameKtp = $no_registrasi  . "-" . "KTP" . "-" . $nama_mahasiswa . "." . $request->file('d_ktp')->getClientOriginalExtension();
-        $pathktp = 'app/public/ktp/'.$nameKtp;
-        $compressktp = Image::make($imagektp)->resize(1080, 1080);
-        // $compressktp->resize(4000, 6000);
-        $compressktp->save(\storage_path($pathktp), 50);
+        $pathktp = 'app/public/ktp/' . $nameKtp;
+        $compressktp = Image::make($imagektp)->resize(1920, 1080);
+        $compressktp->save(\storage_path($pathktp), 30);
 
         // d_kk
         $imagekk = $request->file('d_kk');
@@ -568,7 +553,7 @@ class DokumenMahasiswaController extends Controller
         $pathDokumenwajib = 'public/dokumen_wajib';
         $dokumenwajib->storeAs($pathDokumenwajib, $nameDokumenwajib);
 
-        $simpan = DB::table('tb_dokumenmahasiswa')->where('id', $id)->update([
+        $simpan = DB::table('tb_dokumenmahasiswa')->where('nik', $id)->update([
             'd_ktp'          => $nameKtp,
             'd_kk'           => $nameKK,
             'nik'           => $nik_mahasiswa,

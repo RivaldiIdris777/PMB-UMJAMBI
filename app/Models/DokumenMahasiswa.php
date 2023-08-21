@@ -39,7 +39,7 @@ class DokumenMahasiswa extends Model
 
     public function mahasiswa()
     {
-        return $this->hasOne(Mahasiswa::class, 'id_mahasiswa', 'id');
+        return $this->hasMany(Mahasiswa::class);
     }
 
     public function admin()

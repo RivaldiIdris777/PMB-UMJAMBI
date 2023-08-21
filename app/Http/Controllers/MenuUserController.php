@@ -47,11 +47,14 @@ class MenuUserController extends Controller
 
         $dokumenMahasiswa = DokumenMahasiswa::where('nik', $user[0]->nik)->get();
 
+        $konfirmasi = DokumenMahasiswa::where('nik', $user[0]->nik)->first();
+
         return view($this->folder . '.index', [
             'title' => $this->title,
             'transaksi' => $transaksi,
             'mahasiswa' => $mahasiswa,
-            'dokumenMahasiswa' => $dokumenMahasiswa
+            'dokumenMahasiswa' => $dokumenMahasiswa,
+            'konfirmasi' => $konfirmasi
         ]);
     }
 
@@ -665,7 +668,7 @@ class MenuUserController extends Controller
         $pathDokumenwajib = 'public/dokumen_wajib';
         $dokumenwajib->storeAs($pathDokumenwajib, $nameDokumenwajib);
 
-        $simpan = DB::table('tb_dokumenmahasiswa')->where('id', $id)->update([
+        $simpan = DB::table('tb_dokumenmahasiswa')->where('nik', $id)->update([
             'd_ktp'          => $nameKtp,
             'd_kk'           => $nameKK,
             'nik'           => $nik_mahasiswa,

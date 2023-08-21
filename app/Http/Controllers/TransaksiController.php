@@ -293,7 +293,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id)->first();
 
 
-        return view($this->folder . '.show2', [
+        return view($this->folder . '.show', [
             'title' => $this->title,
             'transaksi' => $transaksi,
             'link' => $link

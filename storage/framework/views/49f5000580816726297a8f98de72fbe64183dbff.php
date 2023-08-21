@@ -19,7 +19,7 @@
                         <div class="col-md-12 col-sm-12 mb-10">
                             <div class="form-group">
                                 <label for="">Id User</label>
-                                <input name="id_user" type="text" value="<?php echo e($transaksi->id_user); ?>" class="form-control">
+                                <input name="id_user" type="text" value="<?php echo e($transaksi->user()->first()->name); ?>" readonly class="form-control">
                                 <?php if($errors->has('id_user')): ?>
                                 <div class="text-danger">
                                     <?php echo e($errors->first('id_user')); ?>

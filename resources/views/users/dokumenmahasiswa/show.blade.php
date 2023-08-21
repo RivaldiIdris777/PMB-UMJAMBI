@@ -19,13 +19,13 @@
                     @forelse ( $dokumen as $tambah )
                         <div class="p-2">
                             <li class="nav navbar-right panel_toolbox">
-                                <a href="{{ route('dokumenmahasiswa.editDokumen', $data->nik) }}" class="btn btn-sm btn-warning">Ubah Dokumen</a>
+                                <a href="{{ route('dokumenmahasiswa.editDokumen', $tambah->nik) }}" class="btn btn-sm btn-warning">Ubah Dokumen</a>
                             </li>
                         </div>
                     @empty
                         <div class="p-2">
                             <li class="nav navbar-right panel_toolbox">
-                                <a href="{{ route('dokumenmahasiswa.createDokumen', $data->nik) }}"
+                                <a href="{{ route('dokumenmahasiswa.createDokumen', $tambah->nik) }}"
                                     class="btn btn-sm btn-success">Masukkan Dokumen
                                 </a>
                             </li>

@@ -22,7 +22,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         <?php endif; ?>
     </div>
-    <form action="<?php echo e(route($link . '.update', $data->id)); ?>" method="POST" enctype="multipart/form-data">
+    <form action="<?php echo e(route($link . '.update', $data->nik)); ?>" method="POST" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
         <?php echo method_field('PUT'); ?>
         <div class="col-md-8 mx-auto">

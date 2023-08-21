@@ -22,7 +22,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         @endif
     </div>
-    <form action="{{ route($link . '.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route($link . '.update', $data->nik) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="col-md-8 mx-auto">

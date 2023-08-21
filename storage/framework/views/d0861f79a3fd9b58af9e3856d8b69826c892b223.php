@@ -18,13 +18,13 @@
                     <?php $__empty_1 = true; $__currentLoopData = $dokumen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tambah): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="p-2">
                             <li class="nav navbar-right panel_toolbox">
-                                <a href="<?php echo e(route('dokumenmahasiswa.editDokumen', $data->nik)); ?>" class="btn btn-sm btn-warning">Ubah Dokumen</a>
+                                <a href="<?php echo e(route('dokumenmahasiswa.editDokumen', $tambah->nik)); ?>" class="btn btn-sm btn-warning">Ubah Dokumen</a>
                             </li>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="p-2">
                             <li class="nav navbar-right panel_toolbox">
-                                <a href="<?php echo e(route('dokumenmahasiswa.createDokumen', $data->nik)); ?>"
+                                <a href="<?php echo e(route('dokumenmahasiswa.createDokumen', $tambah->nik)); ?>"
                                     class="btn btn-sm btn-success">Masukkan Dokumen
                                 </a>
                             </li>

@@ -60,16 +60,17 @@
             </div>
         </div>
 
-        <?php if($dokumenMahasiswa[0]->status_dokumen_final == 'diterima'): ?>
+        <?php if( count($dokumenMahasiswa) > 0): ?>
         <div class="card radius-10">
             <div class="card-header">
                 <h6>Cetak Formulir</h6>
             </div>
             <div class="card-body">
-                <a href="<?php echo e(url('mahasiswa/cetakformulir/'. $mahasiswa[0]->nik)); ?>" class="btn btn-success btn-block">Silahkan Cetak Formulir Disini</a>
+                <a href="<?php echo e(url('mahasiswa/cetakformulir/'. $mahasiswa[0]->nik)); ?>"
+                    class="btn btn-success btn-block">Silahkan Cetak Formulir Disini</a>
             </div>
         </div>
-        <?php else: ?>
+        <?php elseif( count($dokumenMahasiswa) < 1): ?>
 
         <?php endif; ?>
 

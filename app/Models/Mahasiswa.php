@@ -74,6 +74,11 @@ class Mahasiswa extends Model
         return $this->hasOne(User::class, 'id', 'admin_validasi');
     }
 
+    public function dokumen()
+    {
+        return $this->hasOne(DokumenMahasiswa::class, 'nik', 'nik');
+    }
+
     protected function image(): Attribute
     {
         return Attribute::make(
