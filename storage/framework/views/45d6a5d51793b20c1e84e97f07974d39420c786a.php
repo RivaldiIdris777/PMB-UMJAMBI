@@ -66,7 +66,7 @@
                 <h6>Cetak Formulir</h6>
             </div>
             <div class="card-body">
-                <a href="#" class="btn btn-success btn-block">Silahkan Cetak Formulir Disini</a>
+                <a href="<?php echo e(url('mahasiswa/cetakformulir/'. $mahasiswa[0]->nik)); ?>" class="btn btn-success btn-block">Silahkan Cetak Formulir Disini</a>
             </div>
         </div>
         <?php else: ?>

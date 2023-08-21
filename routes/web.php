@@ -112,6 +112,7 @@ Route::middleware(['auth', 'verified', 'checkRole:user'])->group(function () {
     Route::get('createMahasiswa', [MenuUserController::class, 'createMahasiswa'])->name('mahasiswa.createMahasiswa');
     Route::post('storeMahasiswa', [MenuUserController::class, 'storeMahasiswa'])->name('mahasiswa.storeMahasiswa');
     Route::get('showmahasiswa/{id}', [MenuUserController::class, 'showMahasiswa'])->name('mahasiswa.showMahasiswa');
+    Route::get('/mahasiswa/cetakformulir/{id}', [MenuUserController::class, 'cetakformulir']);
     // DokumenMahasiswa
     Route::get('createDokumen', [MenuUserController::class, 'createDokumen'])->name('mahasiswa.createDokumen');
     Route::post('storeDokumen', [MenuUserController::class, 'storeDokumen'])->name('mahasiswa.storeDokumen');

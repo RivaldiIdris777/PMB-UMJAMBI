@@ -697,4 +697,162 @@ class MenuUserController extends Controller
             'dokumen' => $dokumen,
         ]);
     }
+
+    public function cetakformulir($id)
+    {
+        $provinsi = app('App\Http\Controllers\WilayahController')->provinsi();
+
+        $data   =  Mahasiswa::where('nik', $id)->first();
+
+        $id_prov = $data->id_provinsi;
+        $id_kab = $data->id_kabupaten;
+        $id_kec = $data->id_kecamatan;
+        $id_kel = $data->id_kelurahan;
+
+        foreach ($provinsi->data as $value) {
+            if ($id_prov == $value->id) {
+                $nama_prov = $value->name;
+            }
+        }
+        // dd($nama_prov);
+        // get kabupaten
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.goapi.id/v1/regional/kota?provinsi_id=" . $id_prov,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                // Set Here Your Requesred Headers
+                'Content-Type: application/json',
+                'X-API-KEY: hF2515ZMpVMI8qiy6SXJYRKuOGUsOO'
+            ),
+        ));
+        if (curl_error($curl)) {
+            $data_kab = curl_error($curl);
+        } else {
+            $data_kab = curl_exec($curl);
+        }
+        curl_close($curl);
+        $data_kab = json_decode($data_kab);
+        // dd($data_kab);
+
+        foreach ($data_kab->data as $value) {
+            if ($id_kab == $value->id) {
+                $nama_kab = $value->name;
+            }
+        }
+        // dd($nama_kab);
+
+        // get kecamatan
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.goapi.id/v1/regional/kecamatan?kota_id=" . $id_kab,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                // Set Here Your Requesred Headers
+                'Content-Type: application/json',
+                'X-API-KEY: hF2515ZMpVMI8qiy6SXJYRKuOGUsOO'
+            ),
+        ));
+        if (curl_error($curl)) {
+            $data_kec = curl_error($curl);
+        } else {
+            $data_kec = curl_exec($curl);
+        }
+        curl_close($curl);
+        $data_kec = json_decode($data_kec);
+        // dd($data_kec);
+        foreach ($data_kec->data as $value) {
+            if ($id_kec == $value->id) {
+                $nama_kec = $value->name;
+            }
+        }
+        // dd($nama_kec);
+
+        // get kelurahan
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.goapi.id/v1/regional/kelurahan?kecamatan_id=" . $id_kec,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                // Set Here Your Requesred Headers
+                'Content-Type: application/json',
+                'X-API-KEY: hF2515ZMpVMI8qiy6SXJYRKuOGUsOO'
+            ),
+        ));
+        if (curl_error($curl)) {
+            $data_kel = curl_error($curl);
+        } else {
+            $data_kel = curl_exec($curl);
+        }
+        curl_close($curl);
+        $data_kel = json_decode($data_kel);
+        // dd($data_kel);
+
+        foreach ($data_kel->data as $value) {
+            if ($id_kel == $value->id) {
+                $nama_kel = $value->name;
+            }else {
+                $nama_kel = "-";
+            }
+        }
+        // dd($nama_kel);
+
+        // cetak formulir
+        if ($data) {
+
+            $logo_um    = base64_encode(file_get_contents('logo_um.png'));
+            $logo_km    = base64_encode(file_get_contents('logo_kampus_merdeka.png'));
+            $logo_pmb   = base64_encode(file_get_contents('logo_pmb.png'));
+            $ceklis     = base64_encode(file_get_contents('ceklis.png'));
+            $kotak      = base64_encode(file_get_contents('kotak.png'));
+
+            $default = [
+                'kotak'             => $kotak,
+                'prov'              => $nama_prov,
+                'kab'               => $nama_kab,
+                'kec'               => $nama_kec,
+                'kel'               => $nama_kel,
+                'ceklis'            => $ceklis,
+                'logo_um'           => $logo_um,
+                'logo_km'           => $logo_km,
+                'logo_pmb'          => $logo_pmb,
+                'tanggal_formulir'  => Carbon::now()->isoFormat('D MMMM Y'),
+            ];
+
+            $pdf    = PDF::loadView('cetak.template-formulir', ['data' => $data, 'default' => $default])->setPaper([0, 0, 609.4488, 935.433], 'portrait')->setOptions(['defaultFont' => 'serif',]);
+
+            $pdf->output();
+
+            $canvas = $pdf->getDomPDF()->getCanvas();
+
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+
+            $canvas->set_opacity(.5, "Multiply");
+
+            $canvas->set_opacity(.5);
+
+            // Specify watermark image
+            $imageURL = 'watermark.png';
+            $imgWidth = 540;
+            $imgHeight = null;
+
+            $canvas->image($imageURL, $width / 20, $height / 1.2, $imgWidth, $imgHeight);
+            return $pdf->stream();
+        } else {
+            return redirect()->route('usermenu.index');
+        }
+    }
 }
