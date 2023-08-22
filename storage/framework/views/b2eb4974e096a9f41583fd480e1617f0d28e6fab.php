@@ -67,10 +67,10 @@
                     <a href="<?php echo e(url('/export_program_pagi')); ?>" class="btn btn-success">
                         Export Program Pagi
                     </a>
-                    <a href="<?php echo e(url('export_program_malam')); ?>" class="btn btn-success">
+                    <a href="<?php echo e(url('/export_program_malam')); ?>" class="btn btn-success">
                         Export Program Malam
                     </a>
-                    <a href="<?php echo e(url('export_program_kerja')); ?>" class="btn btn-success">
+                    <a href="<?php echo e(url('/export_program_pekerja')); ?>" class="btn btn-success">
                         Export Program Kerja
                     </a>
                 </div>

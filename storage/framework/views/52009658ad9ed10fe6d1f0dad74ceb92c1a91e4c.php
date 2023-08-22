@@ -15,6 +15,12 @@
                     <div class="p-2">
                         <h4 class="mb-0">Bukti Biaya Pendaftaran</h4>
                     </div>
+                    <div class="p-2">
+                        <li class="nav navbar-right panel_toolbox">
+                            <a href="<?php echo e(route('transaksi.usertfedit', $transaksi->id)); ?>"
+                                class="btn btn-sm btn-warning">Ubah Bukti Transaksi</a>
+                        </li>
+                    </div>
                 </div>
             </div>
         </div>

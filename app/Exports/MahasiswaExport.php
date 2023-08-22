@@ -173,7 +173,7 @@ class MahasiswaExport implements FromCollection, ShouldAutoSize, WithMapping, Wi
             $mahasiswa->status_validasi,
             $mahasiswa->keterangan,
             $mahasiswa->gelombang()->first()->nama_gelombang,
-            $mahasiswa->admin_validasi()->first()->name
+            $mahasiswa->admin_validasi()->first()->name ?? ''
         ];
     }
 

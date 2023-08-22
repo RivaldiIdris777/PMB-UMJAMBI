@@ -290,7 +290,7 @@ class TransaksiController extends Controller
     {
         $link = 'transaksi';
 
-        $transaksi = Transaksi::findOrFail($id)->first();
+        $transaksi = Transaksi::where('id', $id)->first();
 
 
         return view($this->folder . '.show', [
@@ -313,7 +313,7 @@ class TransaksiController extends Controller
         $prodi = Prodi::all();
         $program_kuliah = ProgramKuliah::all();
 
-        $transaksi = Transaksi::findOrFail($id)->first();
+        $transaksi = Transaksi::where('id', $id)->first();
 
         return view($this->folder . '.edit', [
             'title' => $this->title,

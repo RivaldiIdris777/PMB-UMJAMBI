@@ -108,6 +108,8 @@ Route::middleware(['auth', 'verified', 'checkRole:user'])->group(function () {
     Route::get('viewTransaksi', [MenuUserController::class, 'viewTransaksi'])->name('transaksi.viewTransaksi');
     Route::get('createTransaksiUser', [TransaksiController::class, 'createByUser'])->name('transaksi.createByUser');
     Route::post('storebymahasiswa', [TransaksiController::class, 'storebymahasiswa'])->name('transaksi.storebymahasiswa');
+    Route::get('tfedit/{id}', [MenuUserController::class, 'editTransaksi'])->name('transaksi.usertfedit');
+    Route::put('editbukti/{id}', [MenuUserController::class, 'updateTransaksi'])->name('transaksi.updateTransaksi');
     // Mahasiswa
     Route::get('createMahasiswa', [MenuUserController::class, 'createMahasiswa'])->name('mahasiswa.createMahasiswa');
     Route::post('storeMahasiswa', [MenuUserController::class, 'storeMahasiswa'])->name('mahasiswa.storeMahasiswa');

@@ -332,6 +332,107 @@ class MenuUserController extends Controller
         return redirect()->route('usermenu.index');
     }
 
+    public function editTransaksi($id)
+    {
+        $title = 'Detail Transaksi';
+        $folder = 'users.transaksi';
+
+        $link = 'transaksi';
+
+        $prodi = Prodi::all();
+        $program_kuliah = ProgramKuliah::all();
+
+        $transaksi = Transaksi::where('id', $id)->first();
+
+        return view($folder.'.edit', [
+            'title' => $title,
+            'transaksi' => $transaksi,
+            'link' => $link,
+            'program_kuliah' => $program_kuliah,
+            'prodi' => $prodi
+        ]);
+    }
+
+    public function updateTransaksi(Request $request, Transaksi $transaksi, $id)
+    {
+        $messages = [
+            'id_user' => [
+                'required' => 'Id User harus diisi',
+            ],
+            'jumlah_pembayaran' => [
+                'required' => 'Biaya pembayaran harus diisi',
+            ],
+            'berkas' => [
+                'max' => 'Size maksimal 5 mb',
+                'required' => 'Belum memasukkan file bukti transaksi'
+            ],
+            'id_program_kuliah' => [
+                'required' => 'Program kuliah harus diisi',
+            ],
+            'id_prodi' => [
+                'required' => 'Program studi harus diisi',
+            ],
+        ];
+
+        $this->validate($request, [
+            'id_user'           => 'required',
+            'jumlah_pembayaran' => 'required',
+            'berkas'            => 'required|mimes:jpg,jpeg,png|max:5242880',
+            'id_program_kuliah' => 'required',
+            'id_prodi'          => 'required',
+        ], $messages);
+
+        $edit = Transaksi::where('id', $id)->first();
+
+        $iduser = User::where('id', $request->id_user)->first();
+
+
+        if($request->file('berkas') == "") {
+            $edit->update([
+                'id_user'           => $request->id_user,
+                'jumlah_pembayaran' => $request->jumlah_pembayaran,
+                'id_program_kuliah' => $request->id_program_kuliah,
+                'id_prodi'         =>  $request->id_prodi,
+                'tanggal_upload' => Carbon::now(),
+                'tanggal_validasi' => Carbon::now(),
+                'status_validasi' => 'Y',
+                'operator_validasi' => $request->operator_validasi
+            ]);
+
+        }else {
+
+            Storage::disk('local')->delete('public/bukti_pembayaran/'.$transaksi->berkas);
+
+            $nikuser = $iduser->nik;
+            $emailUser = $iduser->email;
+
+            $imageberkas = $request->file('berkas');
+            $nameBukti = $nikuser . "-" . "Bukti_Pembayaran" . "-" . $emailUser . "." . $request->file('berkas')->getClientOriginalExtension();
+            $path = 'app/public/bukti_pembayaran/'. $nameBukti;
+            $compressBukti = Image::make($imageberkas)->resize(1080, 1080);
+            $compressBukti->save(\storage_path($path), 80);
+
+            $edit->update([
+                'id_user'           => $request->id_user,
+                'jumlah_pembayaran' => $request->jumlah_pembayaran,
+                'berkas'           =>  $nameBukti,
+                'id_program_kuliah' => $request->id_program_kuliah,
+                'id_prodi'         =>  $request->id_prodi,
+                'tanggal_upload' => Carbon::now(),
+                'tanggal_validasi' => Carbon::now(),
+                'status_validasi' => 'Y',
+                'operator_validasi' => $request->operator_validasi
+            ]);
+
+        }
+
+        if ($edit) {
+            return redirect()->route('transaksi.showTransaksi', $id)->with(['Success' => 'Sukses Ubah Bukti Transaksi']);
+        } else {
+            return redirect()->back()->with(['Warning' => 'Anda belum memasukkan file bukti transaksi']);
+        }
+    }
+
     public function showMahasiswa(Mahasiswa $mahasiswa, $id)
     {
         $folder = 'admins.mahasiswa';

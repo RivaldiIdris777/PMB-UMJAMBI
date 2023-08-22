@@ -1,12 +1,4 @@
 <?php $__env->startSection('content'); ?>
-<div class="alert alert-primary border-0 bg-primary alert-dismissible fade show py-2">
-    <div class="d-flex align-items-center">
-        <div class="ms-3 p-2">
-            <div class="text-white">Welcome <?php echo e(Auth::user()->name); ?> !! Anda memasuki admin akses</div>
-        </div>
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
 <div class="row">
     <div class="col-12">
         <div class="card radius-10">
@@ -18,8 +10,10 @@
                         <?php echo method_field('PUT'); ?>
                         <div class="col-md-12 col-sm-12 mb-10">
                             <div class="form-group">
-                                <label for="">Id User</label>
-                                <input name="id_user" type="text" value="<?php echo e($transaksi->user()->first()->name); ?>" readonly class="form-control">
+                                <label for="">Nama User</label>
+                                <select name="id_user" id="tf" class="form-control">
+                                    <option value="<?php echo e($transaksi->user()->first()->id); ?>"><?php echo e($transaksi->user()->first()->name); ?></option>
+                                </select>
                                 <?php if($errors->has('id_user')): ?>
                                 <div class="text-danger">
                                     <?php echo e($errors->first('id_user')); ?>
@@ -37,7 +31,10 @@
                                 </div>
                                 <?php endif; ?>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-3 text-center">
+                            <img class="mb-2" id="outputtf"
+                                src="<?php echo e(Storage::url('public/bukti_pembayaran/').$transaksi->berkas); ?>" width="500"
+                                height="800">
                                 <label for="berkas">Upload File Berkas</label>
                                 <input type="file" name="berkas" class="form-control">
                                 <?php if($errors->has('berkas')): ?>

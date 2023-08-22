@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agama;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AgamaController extends Controller
 {
@@ -34,7 +35,12 @@ class AgamaController extends Controller
      */
     public function create()
     {
-        //
+        $link = 'agama';
+
+        return view($this->folder . '.add', [
+            'link' => $link,
+            'title' => $this->title
+        ]);
     }
 
     /**
@@ -45,7 +51,33 @@ class AgamaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'name' => [
+                'required' => 'Agama tidak boleh kosong ',
+            ],
+            'status' => [
+                'required' => 'Status tidak boleh kosong',
+            ]
+        ];
+
+
+        $this->validate($request, [
+            'name' => 'required',
+            'status' => 'required'
+        ], $messages);
+
+        $simpan = DB::table('tb_agama')->insert([
+            'name'                   => $request->name,
+            'status'                  => $request->status,
+        ]);
+
+
+        if ($simpan) {
+            return redirect()->route('agama.index')->with(['success' => 'Data Tersimpan']);
+        } else {
+            return redirect()->back()->with(['warning' => 'Terdapat Kesalahan']);
+        }
+
     }
 
     /**
@@ -56,7 +88,7 @@ class AgamaController extends Controller
      */
     public function show(Agama $agama)
     {
-        //
+
     }
 
     /**
@@ -65,9 +97,17 @@ class AgamaController extends Controller
      * @param  \App\Models\Agama  $agama
      * @return \Illuminate\Http\Response
      */
-    public function edit(Agama $agama)
+    public function edit($id)
     {
-        //
+        $agama = Agama::where('id', $id)->first();
+
+        $link = 'agama';
+
+        return view($this->folder . '.edit', [
+            'link' => $link,
+            'title' => $this->title,
+            'agama' => $agama
+        ]);
     }
 
     /**
@@ -77,9 +117,33 @@ class AgamaController extends Controller
      * @param  \App\Models\Agama  $agama
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Agama $agama)
+    public function update(Request $request, $id)
     {
-        //
+        $messages = [
+            'name' => [
+                'required' => 'Agama tidak boleh kosong ',
+            ],
+            'status' => [
+                'required' => 'Status tidak boleh kosong',
+            ]
+        ];
+
+        $this->validate($request, [
+            'name' => 'required',
+            'status' => 'required'
+        ], $messages);
+
+        $simpan = DB::table('tb_agama')->where('id', $id)->update([
+            'name'                   => $request->name,
+            'status'                  => $request->status,
+        ]);
+
+        if ($simpan) {
+            return redirect()->route('agama.index')->with(['success' => 'Data Tersimpan']);
+        } else {
+            return redirect()->back()->with(['warning' => 'Terdapat Kesalahan']);
+        }
+
     }
 
     /**
@@ -88,8 +152,14 @@ class AgamaController extends Controller
      * @param  \App\Models\Agama  $agama
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Agama $agama)
+    public function destroy($id)
     {
-        //
+        $agama = Agama::where('id', $id)->delete();
+
+        if ($agama) {
+            return redirect()->route('agama.index')->with(['success' => 'Data berhasil dihapus']);
+        } else {
+            return redirect()->back()->with(['warning' => 'Terdapat Kesalahan']);
+        }
     }
 }

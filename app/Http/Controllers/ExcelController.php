@@ -106,7 +106,7 @@ class ExcelController extends Controller
 
     public function program_pekerja()
     {
-        return Excel::download(new ProgramMalamExport, 'programmalam.xlsx');
+        return Excel::download(new ProgramPekerjaExport, 'programpekerja.xlsx');
     }
 
     public function filterTanggal(Request $request)

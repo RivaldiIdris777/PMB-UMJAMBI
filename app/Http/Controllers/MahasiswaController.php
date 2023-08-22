@@ -97,7 +97,7 @@ class MahasiswaController extends Controller
             $link = 'biodata';
         }
 
-        return view($this->folder . '.add2', [
+        return view($this->folder . '.add', [
             'link' => $link,
             'info_kuliah' => $info_kuliah,
             'prodi' => $prodi,

@@ -174,7 +174,7 @@ class ProgramPagiExport implements FromCollection, ShouldAutoSize, WithMapping, 
             $mahasiswa->status_validasi,
             $mahasiswa->keterangan,
             $mahasiswa->gelombang()->first()->nama_gelombang,
-            $mahasiswa->admin_validasi()->first()->name
+            $mahasiswa->admin_validasi()->first()->name ?? ''
         ];
     }
 
